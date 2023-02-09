@@ -1,0 +1,20 @@
+<!-- templates/home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meteo API</title>
+</head>
+<body>
+    <h1>
+        All weather data:
+    </h1>
+    <ul>
+        {% for item in weather_mult %}
+        <li>{{ item.loc }} -- {{ item.lat }} -- {{ item.lon }} -- {{ item.date }} -- {{ item.temp }} -- {{ item.rain }} -- {{ item.wind }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
