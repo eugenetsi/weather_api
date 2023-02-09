@@ -1,0 +1,102 @@
+# swagger.yml
+
+# contains OpenAPI definitions and all of the information necessary to configure server 
+# to provide input parameter validation, output response data validation, and URL endpoint definition
+
+openapi: 3.0.0
+info:
+  title: "Meteo API"
+  description: "Gets some weather."
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  parameters:
+    loc:
+      name: "loc"
+      description: "loc: location in {Athens, Rethimno, Larnaca}"
+      in: path
+      required: True
+      schema:
+        type: "string"
+    day:
+      name: "day"
+      description: "which day to get weather for in format YYYYMMDD"
+      in: path
+      required: True
+      schema:
+        type: "string"
+    n:
+      name: "n"
+      description: "integer for top results"
+      in: path
+      required: True
+      schema:
+        type: "integer"
+    metric:
+      name: "metric"
+      description: "metric to measure for top results"
+      in: path
+      required: True
+      schema:
+        type: "string"
+
+paths:
+  /weather:
+    get:
+      operationId: "weather.get_all_weather"
+      tags:
+        - "Weather"
+      summary: "Gets all the weather"
+      responses:
+        "200":
+          description: "Successfully returned weather"
+  /weather/{loc}:
+    get:
+      operationId: "weather.get_loc"
+      tags:
+        - "Weather"
+      summary: "Gets the weather for {location}"
+      parameters:
+        - $ref: "#/components/parameters/loc"
+      responses:
+        "200":
+          description: "Successfully returned weather"
+  /weather/{loc}/{day}:
+    get:
+      operationId: "weather.get_loc_day"
+      tags:
+        - "Weather"
+      summary: "Gets the weather for {location} for {day:YYYYMMDD}"
+      parameters:
+        - $ref: "#/components/parameters/loc"
+        - $ref: "#/components/parameters/day"
+      responses:
+        "200":
+          description: "Successfully returned weather"
+  /weather/{loc}/{day}/average:
+    get:
+      operationId: "weather.get_loc_day_average"
+      tags:
+        - "Weather"
+      summary: "Gets the 3-day rolling average temp for {location} for {day:YYYYMMDD}"
+      parameters:
+        - $ref: "#/components/parameters/loc"
+        - $ref: "#/components/parameters/day"
+      responses:
+        "200":
+          description: "Successfully returned weather"
+  /weather/top/{metric}/{n}:
+    get:
+      operationId: "weather.top"
+      tags:
+        - "Weather"
+      summary: "Gets top {n} locations for {metric}"
+      parameters:
+        - $ref: "#/components/parameters/metric"
+        - $ref: "#/components/parameters/n"
+      responses:
+        "200":
+          description: "Successfully returned weather"

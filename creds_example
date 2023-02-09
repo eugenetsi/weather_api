@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# CAUTION! NEVER EVER UPLOAD FILE
+
+export METEO_API_USR="api-username-here"
+export METEO_API_PSW="api-password-here"
